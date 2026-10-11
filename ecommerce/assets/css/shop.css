@@ -1,0 +1,496 @@
+/* =====================================================================
+   NORD HOME — Shop / category / product-detail styles
+   --------------------------------------------------------------------
+   Loaded on:
+     - products.php  (page-shop)
+     - category.php  (page-shop)
+     - product.php   (page-product)
+   Do NOT put global tokens, header, footer, button, or product card
+   styles here — those live in style.css.
+   ===================================================================== */
+
+/* ----- Page wrapper adjustments ----- */
+.page-shop .site-main,
+.page-product .site-main {
+    /* Allow sidebar to fit comfortably without forcing a tiny right rail */
+    width: min(var(--container), calc(100% - var(--gutter) * 2));
+}
+
+/* ----- Shop header ----- */
+.shop-header {
+    padding: 24px 0 32px;
+}
+.shop-header-inner {
+    display: grid;
+    gap: 10px;
+    max-width: 720px;
+}
+.shop-heading {
+    font-family: var(--font-serif);
+    font-size: var(--fs-h1);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0;
+    color: var(--ink);
+    /* Long Vietnamese titles wrap nicely without overflowing */
+    overflow-wrap: anywhere;
+}
+.shop-description {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+/* ----- Layout (sidebar + main) ----- */
+.shop-content {
+    padding-bottom: 64px;
+}
+.shop-layout {
+    display: grid;
+    /* `minmax(0, 1fr)` is critical: it lets the main column shrink below its
+       intrinsic content size, so a long Vietnamese product name or a fixed
+       intrinsic button never forces the grid wider than its container and
+       creates a horizontal scrollbar. */
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+    min-width: 0;
+}
+
+/* ----- Sidebar (filter form) ----- */
+.shop-sidebar {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px 22px;
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+    /* Stay inside the grid column, never expand it. */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+}
+.shop-filter-form {
+    display: grid;
+    gap: 28px;
+}
+.filter-block {
+    display: grid;
+    gap: 12px;
+}
+.filter-heading {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 4px;
+    color: var(--ink);
+    letter-spacing: 0;
+    text-transform: none;
+}
+.filter-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 4px;
+}
+.filter-radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 0.92rem;
+    color: var(--ink);
+    cursor: pointer;
+    min-width: 0;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+.filter-radio input {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--ink);
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.filter-radio span {
+    flex: 1;
+    min-width: 0;
+}
+.filter-price-custom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+}
+.filter-price-input {
+    display: grid;
+    gap: 4px;
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+.filter-price-input input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    font: inherit;
+    font-size: 0.88rem;
+    color: var(--ink);
+    min-width: 0;
+}
+.filter-price-input input:focus {
+    outline: none;
+    border-color: var(--ink);
+}
+.filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.filter-actions .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ----- Toolbar ----- */
+.shop-main {
+    min-width: 0;
+}
+.shop-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+.shop-count {
+    font-size: 0.92rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+.shop-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.shop-sort-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+.shop-sort-select {
+    font: inherit;
+    padding: 8px 30px 8px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background: var(--paper)
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c1914' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>")
+        no-repeat right 10px center / 14px 14px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    cursor: pointer;
+    min-width: 0;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.shop-sort-select:focus {
+    outline: none;
+    border-color: var(--ink);
+}
+
+/* ----- Product grid in shop ----- */
+.page-shop .product-grid--shop,
+.page-product .product-grid--shop {
+    display: grid;
+    /* `minmax(0, 1fr)` lets each column shrink below its content size so the
+       card buttons and titles never push the column wider than its share. */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* The product card itself must never exceed its grid column, and must
+   permit its children to shrink / wrap. */
+.page-shop .product-card,
+.page-product .product-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.page-shop .product-card > *,
+.page-product .product-card > * {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Action button row: allow wrap so two buttons can fall to two rows when
+   a 3-column desktop card is too narrow to fit them side-by-side without
+   clipping the right edge. */
+.page-shop .product-card-actions,
+.page-product .product-card-actions {
+    flex-wrap: wrap;
+}
+.page-shop .product-card-actions .btn,
+.page-product .product-card-actions .btn {
+    /* Each button keeps ~half the row but can shrink further; min-width 0
+       is what unlocks shrinking inside a flex row. */
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* The "Thêm vào giỏ" submit button is now wrapped in a <form> on the
+   product card. The form itself is the flex item; the inner button fills
+   it. Same shrink/wrap rules apply. */
+.page-shop .product-card-actions > form,
+.page-product .product-card-actions > form {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.page-shop .product-card-actions > form > .btn,
+.page-product .product-card-actions > form > .btn {
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+/* Override the global `.btn { white-space: nowrap }` so the two Vietnamese
+   action labels ("Xem sản phẩm" / "Thêm vào giỏ") never get clipped on a
+   narrow 3-column desktop card. The text is allowed to wrap onto two lines
+   inside the button. The button itself is still constrained by flex-basis,
+   so the card border is never overflowed. */
+.page-shop .product-card-actions .btn,
+.page-product .product-card-actions .btn {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    padding: 8px 10px;
+    word-break: normal;
+    overflow-wrap: anywhere;
+}
+.page-shop .product-card-actions .btn > span,
+.page-product .product-card-actions .btn > span {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* ----- Pagination ----- */
+.pagination {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.pagination-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+.pagination-item {
+    display: inline-flex;
+}
+.pagination-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.pagination-link:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+}
+.pagination-link--current {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+}
+.pagination-link--disabled {
+    color: var(--muted);
+    background: transparent;
+    cursor: not-allowed;
+}
+.pagination-item--ellipsis {
+    padding: 0 4px;
+    color: var(--muted);
+    align-self: center;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ----- Empty state ----- */
+.shop-empty {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: clamp(36px, 6vw, 64px) clamp(20px, 4vw, 48px);
+    text-align: center;
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    min-width: 0;
+}
+.shop-empty-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--paper-warm);
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+.shop-empty-icon .icon { font-size: 1.6rem; }
+.shop-empty-heading {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--ink);
+}
+.shop-empty-text {
+    margin: 0;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.65;
+}
+.shop-empty-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* =====================================================================
+   Related products block — used on category and product detail pages.
+   Detailed product detail layout/styles live in product-detail.css.
+   ===================================================================== */
+.shop-related {
+    padding: 32px 0 64px;
+    min-width: 0;
+}
+
+/* =====================================================================
+   RESPONSIVE — Shop & product detail
+   Breakpoints aligned with the design spec:
+     - >= 1200px  : desktop (sidebar 280px, 3 columns)
+     - 768-1199px : tablet  (sidebar 240px, 2 columns)
+     - <= 767px  : mobile  (sidebar full-width, 1 column)
+     - <= 430px  : small mobile (buttons stack vertically)
+   ===================================================================== */
+
+@media (max-width: 1199px) {
+    .shop-layout {
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 24px;
+    }
+    .page-shop .product-grid--shop,
+    .page-product .product-grid--shop {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+}
+
+@media (max-width: 991px) {
+    /* Sidebar collapses above the products */
+    .shop-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .shop-sidebar {
+        position: static;
+        padding: 20px;
+    }
+    .shop-filter-form {
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+    }
+    .filter-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+    }
+    .filter-actions .btn { flex: 1; }
+}
+
+@media (max-width: 767px) {
+    .shop-content { padding-bottom: 48px; }
+    .shop-header { padding: 14px 0 22px; }
+
+    .shop-filter-form {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    .filter-actions { flex-direction: column; }
+
+    /* Product grid collapses to 1 column at mobile, so cards have plenty
+       of room and buttons stay on a single row. */
+    .page-shop .product-grid--shop,
+    .page-product .product-grid--shop {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+    .page-shop .product-card-actions .btn,
+    .page-product .product-card-actions .btn {
+        flex: 1 1 100%;
+    }
+    .product-card-body { padding: 14px 14px 16px; }
+
+    /* Pagination: tighter spacing */
+    .pagination-link { min-width: 34px; height: 34px; padding: 0 10px; font-size: 0.85rem; }
+    .pagination-item--ellipsis { height: 34px; }
+
+    /* Related section: 1 column on mobile */
+    .shop-related .product-grid--shop { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 430px) {
+    /* Very narrow phones: tighten card body padding further, and let the
+       action buttons stack vertically for the most reliable fit. */
+    .shop-toolbar { gap: 10px; }
+    .shop-sort { width: 100%; }
+    .shop-sort-select { width: 100%; }
+
+    .page-shop .product-grid--shop,
+    .page-product .product-grid--shop {
+        gap: 14px;
+    }
+    .product-card-body { padding: 12px 12px 14px; }
+    .page-shop .product-card-actions .btn,
+    .page-product .product-card-actions .btn {
+        flex-basis: 100%;
+        width: 100%;
+    }
+}
